@@ -1,6 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-const fileTypeValidator = require("../utils/fileTypeValidator.js");
+const { fileTypeValidator } = require("../utils/fileTypeValidator.js");
 const { UNEXPECTED_FILE_TYPE } = require("../constants/file.js");
 
 const storage = multer.diskStorage({
@@ -29,4 +29,4 @@ const upload = multer({
   },
 }).array("file", 1);
 
-module.exports = multer;
+module.exports = { upload };

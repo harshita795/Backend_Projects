@@ -19,8 +19,11 @@ const fileController = async (req, res) => {
     res
       .status(200)
       .json({ message: "File uploaded successfully.", uploadResult: response });
-  } catch (error) {}
-  res.status(500).json({ message: error.message });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: error.message || "An unexpected error occurred." });
+  }
 };
 
-module.exports = fileController;
+module.exports = { fileController };

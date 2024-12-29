@@ -1,5 +1,7 @@
-const { cloudinary } = require("cloudinary");
+const { v2 } = require("cloudinary");
 const crypto = require("crypto");
+const cloudinary = v2;
+require("dotenv").config();
 
 const cloudinaryConfig = () => {
   cloudinary.config({
@@ -10,7 +12,7 @@ const cloudinaryConfig = () => {
 };
 
 const generateSignature = (paramsToSign) => {
-  const { api_secret } = cloudinary.config;
+  const { api_secret } = cloudinary.config();
   const sortedParams = Object.keys(paramsToSign)
     .sort()
     .map((key) => `${key}=${paramsToSign[key]}`)
@@ -20,7 +22,6 @@ const generateSignature = (paramsToSign) => {
     .createHash("sha1")
     .update(sortedParams + api_secret)
     .digest("hex");
-  s;
 
   return signature;
 };
@@ -42,7 +43,8 @@ const uploadToCloudinary = async (filePath) => {
     return result;
   } catch (error) {
     console.error(error);
+    throw new Error("Cloudinary upload failed");
   }
 };
 
-module.exports = uploadToCloudinary;
+module.exports = { uploadToCloudinary };

@@ -12,7 +12,8 @@ const cloudinaryUpload = async (file) => {
     return cloudinaryResponse;
   } catch (error) {
     console.error(error);
+    throw new Error("Cloudinary upload service failed");
   }
 };
 
-module.exports = cloudinaryUpload;
+module.exports = { cloudinaryUpload };
