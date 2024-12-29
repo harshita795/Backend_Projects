@@ -7,4 +7,4 @@ const fileTypeValidator = (file) => {
   return extname && mimeType;
 };
 
-module.exports = fileTypeValidator;
+module.exports = { fileTypeValidator };
